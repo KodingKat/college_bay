@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "719289521202",
+    "project_id": "collegebay-cf561",
+    "storage_bucket": "collegebay-cf561.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719289521202:android:b02bab37a08390482f182b",
+        "android_client_info": {
+          "package_name": "com.example.college_bay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719289521202-rrta29bigulh3ac0eq5g2rgudmm0c5sn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASxjGMmY93gePteT1br-1osY-pznSjLaQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719289521202-rrta29bigulh3ac0eq5g2rgudmm0c5sn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
