@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:college_bay/theme/routes.dart';
+import 'package:college_bay/views/homepage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Register extends StatefulWidget {
-  @override _RegisterViewState createState() => _RegisterViewState();
+  @override
+  _RegisterViewState createState() => _RegisterViewState();
 }
 
-class _RegisterViewState extends State<Register>{
+class _RegisterViewState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _usernameController;
-  TextEditingController _emailController;
-  TextEditingController _passwordController;
-  TextEditingController _retypePasswordController;
+  TextEditingController _usernameController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
+  TextEditingController _retypePasswordController = new TextEditingController();
   bool _isSubmitting = false;
 
   @override
@@ -73,7 +76,6 @@ class _RegisterViewState extends State<Register>{
       decoration: InputDecoration(
         hintText: "8-15 characters long",
         labelText: "Retype Password",
-
         hintStyle: TextStyle(
           color: Colors.white,
         ),
@@ -89,11 +91,9 @@ class _RegisterViewState extends State<Register>{
               emailField,
               passwordField,
               retypePasswordField,
-            ]
-        )
-    );
+            ]));
 
-    final loginButton = Material(
+    final registerButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(25.0),
       color: Colors.white,
@@ -109,8 +109,22 @@ class _RegisterViewState extends State<Register>{
             fontWeight: FontWeight.bold,
           ),
         ),
-        onPressed: () {
-          // firebase_auth
+        onPressed: () async {
+          try {
+            FirebaseUser user =
+                (await FirebaseAuth.instance.createUserWithEmailAndPassword(
+              email: _emailController.text,
+              password: _passwordController.text,
+            )).user;
+            if (user != null) {
+              UserUpdateInfo updateUser = UserUpdateInfo();
+              updateUser.displayName = _usernameController.text;
+              user.updateProfile(updateUser);
+              Navigator.of(context).pushNamed(AppRoutes.homepage);
+            }
+          } catch (except) {
+            print(except);
+          }
         },
       ),
     );
@@ -119,7 +133,7 @@ class _RegisterViewState extends State<Register>{
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        loginButton,
+        registerButton,
         Padding(
           padding: EdgeInsets.all(8.0),
         ),
@@ -129,8 +143,8 @@ class _RegisterViewState extends State<Register>{
             Text(
               "Already a user?",
               style: Theme.of(context).textTheme.subtitle1.copyWith(
-                color: Colors.white,
-              ),
+                    color: Colors.white,
+                  ),
             ),
             MaterialButton(
                 onPressed: () {
@@ -139,11 +153,10 @@ class _RegisterViewState extends State<Register>{
                 child: Text(
                   "Login here",
                   style: Theme.of(context).textTheme.subtitle1.copyWith(
-                    color:Colors.white,
-                    decoration: TextDecoration.underline,
-                  ),
-                )
-            )
+                        color: Colors.white,
+                        decoration: TextDecoration.underline,
+                      ),
+                ))
           ],
         )
       ],
@@ -166,11 +179,6 @@ class _RegisterViewState extends State<Register>{
                             padding: EdgeInsets.only(bottom: 70),
                             child: bottom,
                           ),
-                        ]
-                    )
-                )
-            )
-        )
-    );
+                        ])))));
   }
 }

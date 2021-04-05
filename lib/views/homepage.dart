@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: MyHomePage(),
+      home: MyStatefulWidget(),
     );
   }
 }
@@ -31,41 +31,42 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   File _image;
   String _uploadedFileURL;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center( //Creating the buttons and their functions.
+      body: Center(
+        //Creating the buttons and their functions.
         child: Column(
           children: <Widget>[
             Text('Selected Image'),
             _image != null
                 ? Image.asset(
-              _image.path,
-              height: 200,
-            )
+                    _image.path,
+                    height: 200,
+                  )
                 : Container(height: 200),
             _image == null
                 ? RaisedButton(
-              child: Text('Choose File'),
-              onPressed: chooseFile,
-              color: Colors.indigo,
-            )
+                    child: Text('Choose File'),
+                    onPressed: chooseFile,
+                    color: Colors.indigo,
+                  )
                 : Container(),
             _image != null
                 ? RaisedButton(
-              child: Text('Upload File'),
-              onPressed: uploadFile,
-              color: Colors.indigo,
-            )
+                    child: Text('Upload File'),
+                    onPressed: uploadFile,
+                    color: Colors.indigo,
+                  )
                 : Container(),
             _image != null
                 ? RaisedButton(
-              child: Text('Clear Selection'),
-              onPressed: clearSelection,
-              color: Colors.grey,
-            )
+                    child: Text('Clear Selection'),
+                    onPressed: clearSelection,
+                    color: Colors.grey,
+                  )
                 : Container()
-
           ],
         ),
       ),
@@ -80,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future uploadFile() async{
+  Future uploadFile() async {
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('gs://collegebay-70c11.appspot.com/');
@@ -112,7 +113,8 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   /// Creating the options for the BottomNavigationBar
   /// Final allows the options to use functions, as well as change the state.
   final List<Widget> _widgetOptions = <Widget>[
@@ -176,4 +178,3 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 }
-

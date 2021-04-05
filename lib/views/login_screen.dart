@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:college_bay/theme/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Login extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-
 class _LoginPageState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _emailController;
-  TextEditingController _passwordController;
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
   bool _isSubmitting = false;
 
   @override
@@ -39,19 +39,19 @@ class _LoginPageState extends State<Login> {
 
     final passwordField = Column(
       children: <Widget>[
-      TextFormField(
-        controller: _passwordController,
-        style: TextStyle(
-          color: Colors.white,
-        ),
-        decoration: InputDecoration(
-          hintText: "8-15 characters long",
-          labelText: "Password",
-          hintStyle: TextStyle(
+        TextFormField(
+          controller: _passwordController,
+          style: TextStyle(
             color: Colors.white,
           ),
+          decoration: InputDecoration(
+            hintText: "8-15 characters long",
+            labelText: "Password",
+            hintStyle: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
-      ),
         Padding(
           padding: EdgeInsets.all(2.0),
         ),
@@ -59,9 +59,12 @@ class _LoginPageState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             MaterialButton(
-              child:Text(
+              child: Text(
                 "Forgot Password?",
-                style: Theme.of(context).textTheme.caption.copyWith(color: Colors.white),
+                style: Theme.of(context)
+                    .textTheme
+                    .caption
+                    .copyWith(color: Colors.white),
               ),
               onPressed: () {
                 // TODO: forgot password stuff
@@ -79,9 +82,7 @@ class _LoginPageState extends State<Login> {
             children: <Widget>[
               emailField,
               passwordField,
-            ]
-        )
-    );
+            ]));
 
     final loginButton = Material(
       elevation: 5.0,
@@ -99,8 +100,17 @@ class _LoginPageState extends State<Login> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        onPressed: () {
-          // firebase_auth
+        onPressed: () async {
+          try {
+            FirebaseUser user = (await FirebaseAuth.instance
+                    .signInWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text))
+                .user;
+            Navigator.of(context).pushNamed(AppRoutes.homepage);
+          } catch (excep) {
+            print(excep);
+          }
         },
       ),
     );
@@ -118,25 +128,24 @@ class _LoginPageState extends State<Login> {
           children: <Widget>[
             Text(
               "Not a user?",
-            style: Theme.of(context).textTheme.subtitle1.copyWith(
-              color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.subtitle1.copyWith(
+                    color: Colors.white,
+                  ),
             ),
             MaterialButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(AppRoutes.authRegister);
-              },
-              child: Text(
-                "Sign Up",
-                style: Theme.of(context).textTheme.subtitle1.copyWith(
-                  color:Colors.white,
-                  decoration: TextDecoration.underline,
-                ),
-              )
-            )
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRoutes.authRegister);
+                },
+                child: Text(
+                  "Sign Up",
+                  style: Theme.of(context).textTheme.subtitle1.copyWith(
+                        color: Colors.white,
+                        decoration: TextDecoration.underline,
+                      ),
+                ))
           ],
         )
-    ],
+      ],
     );
 
     return Scaffold(
@@ -146,21 +155,16 @@ class _LoginPageState extends State<Login> {
             child: SingleChildScrollView(
                 padding: EdgeInsets.all(36),
                 child: Container(
-                  height: mq.size.height,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      logo,
-                    fields,
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 70),
-                      child: bottom,
-                    ),
-    ]
-)
-                )
-            )
-        )
-    );
+                    height: mq.size.height,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          logo,
+                          fields,
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 70),
+                            child: bottom,
+                          ),
+                        ])))));
   }
 }

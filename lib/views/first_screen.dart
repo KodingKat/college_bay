@@ -4,7 +4,7 @@ import 'package:college_bay/theme/routes.dart';
 
 class FirstView extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
 
     final logo = Image.asset(
@@ -59,7 +59,7 @@ class FirstView extends StatelessWidget {
     final buttons = Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget> [
+      children: <Widget>[
         loginButton,
         Padding(
           padding: EdgeInsets.fromLTRB(0, 15, 0, 70),
@@ -73,16 +73,15 @@ class FirstView extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(36),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 50),
-              child: logo,
-            ),
-            buttons,
-          ]
-        ),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 50),
+                child: logo,
+              ),
+              buttons,
+            ]),
       ),
     );
-    }
   }
+}
