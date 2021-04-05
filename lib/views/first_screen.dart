@@ -69,7 +69,7 @@ class FirstView extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: Color(0xff8c52ff),
+      backgroundColor: Color(0xff659dbd),
       body: Padding(
         padding: EdgeInsets.all(36),
         child: Column(
