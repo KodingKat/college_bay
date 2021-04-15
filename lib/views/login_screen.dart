@@ -29,8 +29,16 @@ class _LoginPageState extends State<Login> {
         color: Colors.white,
       ),
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white
+          ),
+        ),
         hintText: "username@college.edu",
         labelText: "Email",
+        labelStyle: TextStyle(
+            color: Colors.white
+        ),
         hintStyle: TextStyle(
           color: Colors.white,
         ),
@@ -45,8 +53,16 @@ class _LoginPageState extends State<Login> {
             color: Colors.white,
           ),
           decoration: InputDecoration(
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: Colors.white
+              ),
+            ),
             hintText: "8-15 characters long",
             labelText: "Password",
+            labelStyle: TextStyle(
+                color: Colors.white
+            ),
             hintStyle: TextStyle(
               color: Colors.white,
             ),
@@ -149,7 +165,7 @@ class _LoginPageState extends State<Login> {
     );
 
     return Scaffold(
-        backgroundColor: Color(0xff659dbd),
+        backgroundColor: Color(0xff000080),
         body: Form(
             key: _formKey,
             child: SingleChildScrollView(

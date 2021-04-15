@@ -14,7 +14,7 @@ class AppRoutes {
     return {
       authLogin: (context) => Login(),
       authRegister: (context) => Register(),
-      homepage: (context) => MyHomePage(),
+      homepage: (context) => HomePageState(),
     };
   }
 }

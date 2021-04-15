@@ -10,6 +10,7 @@ class Register extends StatefulWidget {
 
 class _RegisterViewState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
+  //creating variables for the different fields
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
@@ -20,11 +21,13 @@ class _RegisterViewState extends State<Register> {
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
 
+    //setting the logo to the top of the screen
     final logo = Image.asset(
       "assets/logo.png",
       height: mq.size.height / 4,
     );
 
+    //creating the space for the user to enter email
     final emailField = TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
@@ -32,50 +35,85 @@ class _RegisterViewState extends State<Register> {
         color: Colors.white,
       ),
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+              color: Colors.white
+          ),
+        ),
         hintText: "username@college.edu",
         labelText: "Email",
+        labelStyle: TextStyle(
+            color: Colors.white
+        ),
         hintStyle: TextStyle(
           color: Colors.white,
         ),
       ),
     );
 
+    //creating the space for the user to enter username
     final usernameField = TextFormField(
       controller: _usernameController,
       style: TextStyle(
         color: Colors.white,
       ),
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+              color: Colors.white
+          ),
+        ),
         hintText: "firstname.lastname",
         labelText: "Username",
+        labelStyle: TextStyle(
+            color: Colors.white
+        ),
         hintStyle: TextStyle(
           color: Colors.white,
         ),
       ),
     );
 
+    //creating the space for the user to enter password
     final passwordField = TextFormField(
       controller: _passwordController,
       style: TextStyle(
         color: Colors.white,
       ),
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+              color: Colors.white
+          ),
+        ),
         hintText: "8-15 characters long",
         labelText: "Password",
+        labelStyle: TextStyle(
+          color: Colors.white
+        ),
         hintStyle: TextStyle(
           color: Colors.white,
         ),
       ),
     );
 
+    //creating the space for password verification
     final retypePasswordField = TextFormField(
       controller: _retypePasswordController,
       style: TextStyle(
         color: Colors.white,
       ),
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+              color: Colors.white
+          ),
+        ),
         hintText: "8-15 characters long",
         labelText: "Retype Password",
+        labelStyle: TextStyle(
+          color: Colors.white
+        ),
         hintStyle: TextStyle(
           color: Colors.white,
         ),
@@ -93,6 +131,7 @@ class _RegisterViewState extends State<Register> {
               retypePasswordField,
             ]));
 
+    //creating the register button and what it does
     final registerButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(25.0),
@@ -116,11 +155,19 @@ class _RegisterViewState extends State<Register> {
               email: _emailController.text,
               password: _passwordController.text,
             )).user;
+            if (_passwordController != _retypePasswordController) {
+              print("Passwords do not match");
+              _emailController.text = "";
+              _usernameController.text = "";
+              _passwordController.text = "";
+              _retypePasswordController.text = "";
             if (user != null) {
               UserUpdateInfo updateUser = UserUpdateInfo();
               updateUser.displayName = _usernameController.text;
               user.updateProfile(updateUser);
               Navigator.of(context).pushNamed(AppRoutes.homepage);
+            }
+
             }
           } catch (except) {
             print(except);
@@ -163,7 +210,7 @@ class _RegisterViewState extends State<Register> {
     );
 
     return Scaffold(
-        backgroundColor: Color(0xff659dbd),
+        backgroundColor: Color(0xff000080),
         body: Form(
             key: _formKey,
             child: SingleChildScrollView(
