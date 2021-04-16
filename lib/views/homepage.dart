@@ -1,49 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 
+void main() {
+  HomePageState();
+  @override
+  HomePageState createState() => HomePageState();
+}
+
 class HomePageState extends StatelessWidget {
   HomePageState();
 
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
-
-    final logo = Image.asset(
-      "assets/logo.png",
-      fit: BoxFit.contain,
-    );
-
-    final itemsList = Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          StreamBuilder(
-              stream: Firestore.instance.collection('items').snapshots(),
-              builder: (context, snapshot) {
-                return ListView.builder(
-                    itemCount: snapshot.data.documents.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      DocumentSnapshot items = snapshot.data.documents[index];
-                      return ListTile(
-                        leading: Image.network(items['imageLinks']),
-                        title: Text(items['title']),
-                      );
-                    });
-              }),
-        ]);
-
     return Scaffold(
-      backgroundColor: Color(0xffDA70D6),
-      body: Padding(
-        padding: EdgeInsets.all(36),
-        child: Column(ry
-            children: <Widget>[
-              itemsList,
-            ]),
-      ),
+      backgroundColor: Color(0xff000080),
+      floatingActionButton: null,
+      body: StreamBuilder(
+          stream: Firestore.instance.collection('items').limit(10).snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView(
+              children: snapshot.data.documents.map((document) {
+                return Padding(
+                  padding: EdgeInsets.only(top: 15.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.red),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12),
+                            child: Text(
+                              document['title'],
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          child: CachedNetworkImage(
+                            imageUrl: document['imageLinks'],
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            );
+          }),
     );
   }
 }

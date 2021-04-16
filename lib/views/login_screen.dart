@@ -123,7 +123,7 @@ class _LoginPageState extends State<Login> {
                         email: _emailController.text,
                         password: _passwordController.text))
                 .user;
-            Navigator.of(context).pushNamed(AppRoutes.homepage);
+            Navigator.of(context).pushNamed(AppRoutes.menuScreen);
           } catch (excep) {
             print(excep);
           }
