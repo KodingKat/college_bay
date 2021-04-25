@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:college_bay/views/login_screen.dart';
 import 'package:college_bay/views/reg_screen.dart';
 import 'package:college_bay/views/menuScreen.dart';
+import 'package:college_bay/views/uploadProduct.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -12,6 +13,7 @@ class AppRoutes {
   static const String authRegister = '/auth-Register';
   static const String homepage = '/homepage';
   static const String menuScreen = '/menuScreen';
+  static const String uploadProduct = '/uploadProduct';
 
   static Map<String, WidgetBuilder> define() {
     return {
@@ -19,6 +21,7 @@ class AppRoutes {
       authRegister: (context) => Register(),
       homepage: (context) => HomePageState(),
       menuScreen: (context) => MenuScreen(),
+      uploadProduct: (context) => UploadProduct(),
     };
   }
 }

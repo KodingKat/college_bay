@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as Path;
+import 'package:college_bay/views/productPage.dart';
 
 void main() {
   HomePageState();
@@ -36,30 +33,39 @@ class HomePageState extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 1.2,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.red),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
+                        color: Color(0xffFF8A09D9)),
+                    child: MaterialButton(
+                      onPressed: () {
+                        var docID = document.documentID;
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Product(docID)));
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                              child: Text(
+                                document['title'],
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
+                          Padding(
                             padding: EdgeInsets.symmetric(vertical: 12),
-                            child: Text(
-                              document['title'],
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12),
-                          child: CachedNetworkImage(
-                            imageUrl: document['imageLinks'],
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                          ),
-                        )
-                      ],
+                            child: CachedNetworkImage(
+                              imageUrl: document['imageLinks'],
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 );

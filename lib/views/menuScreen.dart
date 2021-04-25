@@ -1,7 +1,7 @@
 import 'package:college_bay/views/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:college_bay/views/homepage.dart';
-import 'package:college_bay/views/reg_screen.dart';
+import 'package:college_bay/views/uploadProduct.dart';
 
 
 class MenuScreen extends StatefulWidget {
@@ -42,7 +42,7 @@ class MenuScreenState extends State<MenuScreen> {
               body: TabBarView(
                 children: <Widget>[
                   HomePageState(),
-                  Register(),
+                  UploadProduct(),
                 ],
               ),
             )

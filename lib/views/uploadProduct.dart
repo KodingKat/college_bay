@@ -5,30 +5,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of the application.
+class UploadProduct extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    //Architecture for uploading image.
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      home: MyHomePage(),
-    );
-  }
+  _UploadProductState createState() => _UploadProductState();
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _UploadProductState extends State<UploadProduct> {
   File _image;
   String _uploadedFileURL;
   @override
@@ -124,7 +106,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       'Index 2: School',
       style: optionStyle,
     ),
-    MyHomePage(),
+    UploadProduct(),
     Text(
       'Index 3: Settings',
       style: optionStyle,
