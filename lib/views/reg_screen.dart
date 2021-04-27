@@ -10,7 +10,7 @@ class Register extends StatefulWidget {
 
 class _RegisterViewState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
-  //creating variables for the different fields
+  //creating variables for the different fields. To be used in authentication
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
@@ -121,6 +121,7 @@ class _RegisterViewState extends State<Register> {
     );
 
     final fields = Padding(
+      // Using the input functions created above
         padding: EdgeInsets.only(top: 15.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -131,7 +132,7 @@ class _RegisterViewState extends State<Register> {
               retypePasswordField,
             ]));
 
-    //creating the register button and what it does
+    //creating the register button and it's functionality
     final registerButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(25.0),
@@ -150,6 +151,8 @@ class _RegisterViewState extends State<Register> {
         ),
         onPressed: () async {
           try {
+            // Sending the users input to FirebaseAuth for verification
+            // and registration
             FirebaseUser user =
                 (await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: _emailController.text,
@@ -177,6 +180,7 @@ class _RegisterViewState extends State<Register> {
     );
 
     final bottom = Column(
+      // Creating the "Login here" button to take the user to the login page
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -210,7 +214,7 @@ class _RegisterViewState extends State<Register> {
     );
 
     return Scaffold(
-        backgroundColor: Color(0xff000080),
+        backgroundColor: Color(0xffFF8A09D9),
         body: Form(
             key: _formKey,
             child: SingleChildScrollView(

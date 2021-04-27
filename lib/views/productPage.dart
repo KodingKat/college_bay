@@ -24,9 +24,12 @@ class _ProductState extends State<Product> {
             'Product'
         ),
       ),
+      // Creating the space for the user to scroll through the details of the
+      // product
       body: ListView(
         children: <Widget>[
           StreamBuilder<DocumentSnapshot>(
+            // This is the necessary stream that gives access to the database
             stream: Firestore.instance.collection('items').document(docId).snapshots(),
             builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (snapshot.hasError) return Text('Error: ${snapshot.error}');

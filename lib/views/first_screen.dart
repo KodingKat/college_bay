@@ -13,6 +13,7 @@ class FirstView extends StatelessWidget {
     );
 
     final loginButton = Material(
+      // Creating the login button and its functionality
       elevation: 5.0,
       borderRadius: BorderRadius.circular(25.0),
       color: Colors.white,
@@ -35,6 +36,7 @@ class FirstView extends StatelessWidget {
     );
 
     final registerButton = Material(
+      // Creating the register button and its functionality
       elevation: 5.0,
       borderRadius: BorderRadius.circular(25.0),
       color: Colors.white,
@@ -57,6 +59,7 @@ class FirstView extends StatelessWidget {
     );
 
     final buttons = Column(
+      // Using the buttons created above in one function
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -69,7 +72,7 @@ class FirstView extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: Color(0xff000080),
+      backgroundColor: Color(0xffFF8A09D9),
       body: Padding(
         padding: EdgeInsets.all(36),
         child: Column(

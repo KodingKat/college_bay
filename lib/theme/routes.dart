@@ -8,7 +8,7 @@ import 'package:college_bay/views/uploadProduct.dart';
 
 class AppRoutes {
   AppRoutes._();
-
+//Directing the mapped pointers to the assigned location.
   static const String authLogin = '/auth-login';
   static const String authRegister = '/auth-Register';
   static const String homepage = '/homepage';

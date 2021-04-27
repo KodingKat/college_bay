@@ -9,7 +9,7 @@ class MenuScreen extends StatefulWidget {
   @override
   MenuScreenState createState() => MenuScreenState();
 }
-
+// Creating the bottom navigation bar and its functionality
 class MenuScreenState extends State<MenuScreen> {
   MenuScreenState();
   Widget build(BuildContext context) {

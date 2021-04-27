@@ -17,6 +17,7 @@ class HomePageState extends StatelessWidget {
       backgroundColor: Color(0xff000080),
       floatingActionButton: null,
       body: StreamBuilder(
+        // Creating the stream necessary to access the firestore database
           stream: Firestore.instance.collection('items').limit(10).snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -25,7 +26,9 @@ class HomePageState extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
+            //Creating the scrolling list of images and titles
             return ListView(
+              // Viewing all of the items and their fields in the database
               children: snapshot.data.documents.map((document) {
                 return Padding(
                   padding: EdgeInsets.only(top: 15.0),
